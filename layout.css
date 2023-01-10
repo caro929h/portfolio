@@ -132,7 +132,13 @@ footer {
 
 /* Om mig - mobilsite */
 
-@media (min-width: 699px) {
+.socialemedia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 30%;
+}
+
+@media (min-width: 700px) {
   /* menu */
 
   header {
@@ -184,11 +190,11 @@ footer {
 
   /****** breadcrum list *****/
 
-  ul.breadcrumb {
+  ol.breadcrumb {
     list-style: none;
   }
 
-  ul.breadcrumb li {
+  ol.breadcrumb li {
     display: inline;
     font-family: "tekst_font";
     font-weight: 200;
@@ -198,17 +204,17 @@ footer {
     letter-spacing: 0.1em;
   }
 
-  ul.breadcrumb li + li:before {
+  ol.breadcrumb li + li:before {
     padding: 8px;
     color: #7c5231;
     content: "/\00a0";
   }
 
-  ul.breadcrumb li a {
+  ol.breadcrumb li a {
     color: #7c5231;
   }
 
-  ul.breadcrumb li a:hover {
+  ol.breadcrumb li a:hover {
     color: #f07900;
   }
 
