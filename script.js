@@ -1,70 +1,29 @@
-(() => {
-  //console.clear();
-  const nav = document.querySelector("nav:where(header *)");
-  if (!nav) return;
-  const breakpoint = window.getComputedStyle(nav).getPropertyValue("--less-than") || "600";
-  const mobileMQ = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
-  const iconClose = "M18 6L6 18M6 6l12 12";
-  const iconMenu = "M4 12h16M4 6h16M4 18h16";
-  const svg = (d) => `<svg viewBox="0 0 24 24" width="24" height="24">
-        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="${d}"></path>
-      </svg>`;
+// Lav variablen "btn", der henviser til ".toggle-btn"
 
-  const btn = document.createElement("button");
-  btn.setAttribute("aria-expanded", false);
-  btn.setAttribute("aria-label", "Vis menu");
-  btn.innerHTML = svg(iconMenu);
-  nav.prepend(btn);
+const btn = document.querySelector(".toggle-btn");
 
-  btn.addEventListener("click", clickHandler);
+// Lav variablen "menu", der henviser til ".main-menu"
 
-  function clickHandler() {
-    let expanded = this.getAttribute("aria-expanded") === "true" || false;
+const menu = document.querySelector(".index_nav");
 
-    this.setAttribute("aria-expanded", !expanded);
-    this.setAttribute("aria-label", !expanded ? "Skjul menu" : "Vis menu");
+// Lav funktionen "toggleMenu()" med følgende funktionalitet
 
-    this.innerHTML = svg(!expanded ? iconClose : iconMenu);
+function toggleMenu() {
+  // a) toggle klassen "shown" på menu vha. classList.toggle
+  menu.classList.toggle("shown");
+
+  btn.classList.toggle("pressed");
+
+  // b) lav variablen "menuShown", som siger, at menu-variablen indeholder klassen "shown" via classList.contains("")
+  const menuShown = menu.classList.contains("shown");
+
+  // c) spørg om "menuShown" i if-sætningen nedenfor (=> if (menuShown)), og udskift teksten
+  if (menuShown) {
+    console.log(menuShown); // se i konsollen
+  } else {
+    console.log(menuShown); // se i konsollen
   }
-
-  const handleMobileChange = ({ matches }) => {
-    btn.hidden = matches ? false : true;
-    nav.dataset.menuBtnShown = matches ? true : false;
-  };
-
-  mobileMQ.addListener(handleMobileChange);
-
-  handleMobileChange(mobileMQ);
-
-  const injectCSS = (css) => {
-    const style = document.createElement("style");
-    style.innerText = css;
-    document.head.appendChild(style);
-    return style;
-  };
-  injectCSS(`\
-        [hidden] {display: none !important;}\
-        [aria-expanded="false"]:not([hidden]) + ul { display: none; }\
-        header { flex-wrap: wrap; }\
-        nav[data-menu-btn-shown="true"] { display: contents; }\
-        nav:only-child, nav:only-child button { margin-inline-start: auto; }\
-        [aria-expanded="true"]:not([hidden]) + ul { flex-flow: column; flex-basis: 100%; }\
-        button[aria-expanded] {\
-          background: unset;\
-          border: 2px solid var(--burger-border, #e2e1e4);\
-          box-sizing: border-box;\
-          border-radius: 6px;\
-          inline-size: 2.25rem;\
-          block-size: 2.25rem;\
-          padding: .25rem;\
-          cursor: pointer;\
-          color: var(--burger-lines, currentColor);\
-        }\
-        svg {\
-          display: block;\
-          inline-size: 100%;\
-          block-size: 100%;\
-          color: currentColor;
-        }\
-      `);
-})();
+  // "toggleMenu()" slutter her
+}
+// Tilføj et klik-event til "btn", der sætter toggleMenu-funktionen i gang
+btn.addEventListener("click", toggleMenu);

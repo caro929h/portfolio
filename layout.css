@@ -42,17 +42,13 @@ header a:hover {
   transition: all 0.3s ease-in-out;
 }
 
-.index_nav {
-  margin-top: 50px;
-}
-
 /****** breadcrum list *****/
 
-ul.breadcrumb {
+ol.breadcrumb {
   list-style: none;
 }
 
-ul.breadcrumb li {
+ol.breadcrumb li {
   display: inline;
   font-family: "tekst_font";
   font-weight: 200;
@@ -62,17 +58,17 @@ ul.breadcrumb li {
   letter-spacing: 0.1em;
 }
 
-ul.breadcrumb li + li:before {
+ol.breadcrumb li + li:before {
   padding: 8px;
   color: #7c5231;
   content: "/\00a0";
 }
 
-ul.breadcrumb li a {
+ol.breadcrumb li a {
   color: #7c5231;
 }
 
-ul.breadcrumb li a:hover {
+ol.breadcrumb li a:hover {
   color: #f07900;
 }
 
@@ -138,6 +134,54 @@ footer {
   width: 30%;
 }
 
+/* burgermenu */
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  display: none; /* Skjul knappen som standard */
+}
+
+@media (max-width: 700px) {
+  .toggle-btn {
+    display: block; /* Vis knappen, når viewporten maksimalt er 700px */
+  }
+
+  .index_nav {
+    display: contents; /* Fjern ".main-menu"-boksen fra ligningen, når viewporten maksimalt er 700px, men behold børnene, så disse deltager i flex-kontekten */
+  }
+
+  .index_nav ul {
+    display: none; /* Fjern menu-listen som standard */
+  }
+
+  .index_nav.shown ul {
+    /* Vis menu-listen, når klassen ".shown" er til stede */
+    padding-top: 1rem;
+    display: flex;
+    flex: 1 1 100%;
+    flex-flow: column;
+    text-align: center;
+  }
+}
+
+.toggle-btn .close {
+  display: none;
+}
+
+.pressed .close {
+  display: block;
+}
+
+.pressed .menubtn {
+  display: none;
+}
+
 @media (min-width: 700px) {
   /* menu */
 
@@ -184,10 +228,9 @@ footer {
     transition: all 0.3s ease-in-out;
   }
 
-  .index_nav {
+  .index_menu {
     margin-top: 50px;
   }
-
   /****** breadcrum list *****/
 
   ol.breadcrumb {
@@ -304,16 +347,11 @@ footer {
   }
 
   .mig_billede {
-    --_g: 10% / 45% 45% no-repeat linear-gradient(black 0 0);
-    --m: left var(--_i, 0%) top var(--_g), bottom var(--_i, 0%) left var(--_g), top var(--_i, 0%) right var(--_g), right var(--_i, 0%) bottom var(--_g);
-    -webkit-mask: var(--m);
-    mask: var(--m);
     filter: grayscale(1);
-    transition: 0.3s linear;
+    transition: 0.3s;
     cursor: pointer;
   }
   img:hover {
-    --_i: 10%;
     filter: grayscale(0);
   }
 }
